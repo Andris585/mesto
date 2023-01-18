@@ -7,7 +7,3 @@
   border: none;
   margin: 30px 20px 30px auto;
 }
-
-.elements__like:active {
-  background-image: url(../../../images/Union.svg);
-}
