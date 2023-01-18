@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Mesto</title>
+</head>
+<body class="page">
+    <header class="header">
+      <div class="header__logo"></div>
+    </header>
+    <main class="content">
+      <section class="profile">
+        <div class="profile__container">
+          <img src="./images/image.jpg" alt="" class="profile__avatar">
+          <div class="profile__info">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <button class="profile__button-edit button"></button>
+          <p class="profile__bio">Исследователь океана</p>
+          </div>
+        </div>
+        <button class="profile__button-add button"></button>
+      </section>
+      <section class="elements">
+        <ul class="elements__list">
+          <li class="elements__item">
+            <div style="background-image: url('./images/kirill-pershin-1088404-unsplash(karachevsk).jpg');" class="elements__pic"></div>
+            <p class="elements__caption">Карачаевск</p>
+            <button class="elements__like button"></button>
+          </li>
+          <li class="elements__item">
+            <div style="background-image: url('./images/kirill-pershin-1404681-unsplash(elbrus).png');" class="elements__pic"></div>
+            <p class="elements__caption">Гора Эльбрус</p>
+            <button class="elements__like button"></button>
+          </li>
+          <li class="elements__item">
+            <div style="background-image: url('./images/kirill-pershin-1556355-unsplash(dombay).png');" class="elements__pic"></div>
+            <p class="elements__caption">Домбай</p>
+            <button class="elements__like button"></button>
+          </li>
+          <li class="elements__item">
+            <div style="background-image: url('./images/kirill-pershin-1404681-unsplash(elbrus).png');" class="elements__pic"></div>
+            <p class="elements__caption">Гора Эльбрус</p>
+            <button class="elements__like button"></button>
+          </li>
+          <li class="elements__item">
+            <div div style="background-image: url('./images/kirill-pershin-1556355-unsplash(dombay).png');" class="elements__pic"></div>
+            <p class="elements__caption">Домбай</p>
+            <button class="elements__like button"></button>
+          </li>
+          <li class="elements__item">
+            <div style="background-image: url('./images/kirill-pershin-1088404-unsplash(karachevsk).jpg');" class="elements__pic"></div>
+            <p class="elements__caption">Карачаево-Черкесия</p>
+            <button class="elements__like button"></button>
+          </li>
+        </ul>
+      </section>
+      <footer class="footer">
+        <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+      </footer>
+      <div class="popup_opened">
+        <form action="" method="get" class="popup__form">
+            <p class="popup__title">Редактировать профиль</p>
+            <input type="text" name="name" class="popup__input">
+            <input type="text" name="surname" class="popup__input">
+          <button type="submit" class="popup__submit">Сохранить</button>
+          <button type="button" class="popup__close-button button"></button>
+        </form>
+      </div>
+    </main>
+</body>
+</html>

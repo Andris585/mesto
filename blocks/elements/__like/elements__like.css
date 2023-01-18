@@ -1,0 +1,13 @@
+.elements__like {
+  padding: 0;
+  background-image: url(../../../images/Vector.svg);
+  background-color: #fff;
+  width: 22px;
+  height: 19px;
+  border: none;
+  margin: 30px 20px 30px auto;
+}
+
+.elements__like:active {
+  background-image: url(../../../images/Union.svg);
+}

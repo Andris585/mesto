@@ -1,0 +1,9 @@
+.elements__item {
+  border-radius: 10px;
+  background-color: #fff;
+  display: grid;
+  grid-template-areas:
+    'pic pic'
+    'caption like';
+  grid-template-columns: 1fr, min-content;
+}

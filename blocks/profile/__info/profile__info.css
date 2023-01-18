@@ -1,0 +1,10 @@
+.profile__info {
+  display: grid;
+  grid-template-areas: 
+  'name edit'
+  'bio .';
+  align-items: end;
+  column-gap: 18px;
+  row-gap: 7px;
+  max-width: 336px;
+}
