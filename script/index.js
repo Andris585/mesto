@@ -32,6 +32,7 @@ function handleFormSubmit (evt) {
     let profileBioEdited = popupInputBioElement.value;
     profileNameElement.textContent = profileNameEdited;
     profileBioElement.textContent = profileBioEdited;
+    closePopup();
 }
 
 popupFormElement.addEventListener('submit', handleFormSubmit);
