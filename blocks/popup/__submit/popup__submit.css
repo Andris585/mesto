@@ -12,6 +12,7 @@
   color: #FFFFFF;
   margin: 48px auto 37px;
   transition: .4s;
+  border-radius: 2px;
 }
 
 .popup__submit:hover {
@@ -19,7 +20,7 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 467px) {
   .popup__submit {
     height: 46px;
     margin: 45px 0 25px 0;
