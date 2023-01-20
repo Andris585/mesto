@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,69 +8,79 @@
   <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
+
 <body class="page">
-    <header class="header">
-      <div class="header__logo"></div>
-    </header>
-    <main class="content">
-      <section class="profile">
-        <div class="profile__container">
-          <div class="profile__avatar" style="background-image: url(./images/image.jpg)"></div>
-          <div class="profile__info">
+  <header class="header">
+    <div class="header__logo"></div>
+  </header>
+  <main class="content">
+    <section class="profile">
+      <div class="profile__container">
+        <img src="./images/image.jpg" alt="аватар профиля" class="profile__avatar">
+        <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__button-edit button"></button>
+          <button class="profile__button-edit button" type="button"></button>
           <p class="profile__bio">Исследователь океана</p>
-          </div>
         </div>
-        <button class="profile__button-add button"></button>
-      </section>
-      <section class="elements">
-        <ul class="elements__list">
-          <li class="elements__item">
-            <div style="background-image: url('./images/kirill-pershin-1088404-unsplash(karachevsk).jpg');" class="elements__pic"></div>
-            <p class="elements__caption">Карачаевск</p>
-            <button class="elements__like button"></button>
-          </li>
-          <li class="elements__item">
-            <div style="background-image: url('./images/kirill-pershin-1404681-unsplash(elbrus).png');" class="elements__pic"></div>
-            <p class="elements__caption">Гора Эльбрус</p>
-            <button class="elements__like button"></button>
-          </li>
-          <li class="elements__item">
-            <div style="background-image: url('./images/kirill-pershin-1556355-unsplash(dombay).png');" class="elements__pic"></div>
-            <p class="elements__caption">Домбай</p>
-            <button class="elements__like button"></button>
-          </li>
-          <li class="elements__item">
-            <div style="background-image: url('./images/kirill-pershin-1404681-unsplash(elbrus).png');" class="elements__pic"></div>
-            <p class="elements__caption">Гора Эльбрус</p>
-            <button class="elements__like button"></button>
-          </li>
-          <li class="elements__item">
-            <div style="background-image: url('./images/kirill-pershin-1556355-unsplash(dombay).png');" class="elements__pic"></div>
-            <p class="elements__caption">Домбай</p>
-            <button class="elements__like button"></button>
-          </li>
-          <li class="elements__item">
-            <div style="background-image: url('./images/kirill-pershin-1088404-unsplash(karachevsk).jpg');" class="elements__pic"></div>
-            <p class="elements__caption">Карачаево-Черкесия</p>
-            <button class="elements__like button"></button>
-          </li>
-        </ul>
-      </section>
-      <footer class="footer">
-        <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
-      </footer>
-      <div class="popup">
-        <form action="#" method="get" class="popup__form">
-            <p class="popup__title">Редактировать профиль</p>
-            <input type="text" name="name" class="popup__input popup__input-name">
-            <input type="text" name="bio" class="popup__input popup__input-bio">
-          <button type="submit" class="popup__submit">Сохранить</button>
-          <button type="button" class="popup__close-button button"></button>
-        </form>
       </div>
-    </main>
-    <script src="./script/index.js"></script>
+      <button class="profile__button-add button" type="button"></button>
+    </section>
+    <section class="elements" aria-label="фотогалерея профиля">
+      <ul class="elements__list">
+        <li class="elements__item">
+          <div style="background-image: url('./images/kirill-pershin-1088404-unsplash(karachevsk).jpg');"
+            class="elements__pic"></div>
+          <h2 class="elements__caption">Карачаевск</h2>
+          <button class="elements__like" type="button"></button>
+        </li>
+        <li class="elements__item">
+          <div style="background-image: url('./images/kirill-pershin-1404681-unsplash(elbrus).png');"
+            class="elements__pic"></div>
+          <h2 class="elements__caption">Гора Эльбрус</h2>
+          <button class="elements__like" type="button"></button>
+        </li>
+        <li class="elements__item">
+          <div style="background-image: url('./images/kirill-pershin-1556355-unsplash(dombay).png');"
+            class="elements__pic"></div>
+          <h2 class="elements__caption">Домбай</h2>
+          <button class="elements__like" type="button"></button>
+        </li>
+        <li class="elements__item">
+          <div style="background-image: url('./images/kirill-pershin-1404681-unsplash(elbrus).png');"
+            class="elements__pic"></div>
+          <h2 class="elements__caption">Гора Эльбрус</h2>
+          <button class="elements__like" type="button"></button>
+        </li>
+        <li class="elements__item">
+          <div style="background-image: url('./images/kirill-pershin-1556355-unsplash(dombay).png');"
+            class="elements__pic"></div>
+          <h2 class="elements__caption">Домбай</h2>
+          <button class="elements__like" type="button"></button>
+        </li>
+        <li class="elements__item">
+          <div style="background-image: url('./images/kirill-pershin-1088404-unsplash(karachevsk).jpg');"
+            class="elements__pic"></div>
+          <h2 class="elements__caption">Карачаево-Черкесия</h2>
+          <button class="elements__like" type="button"></button>
+        </li>
+      </ul>
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+  </footer>
+  <div class="popup">
+    <div class="popup__container">
+      <form action="#" method="get" class="popup__form" name="profile-form">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <input type="text" name="name" placeholder="Ваше имя?" class="popup__input popup__input_type_name">
+        <input type="text" name="bio" placeholder="Кто вы?" class="popup__input popup__input_type_bio">
+        <button type="submit" class="popup__submit">Сохранить</button>
+        <button type="button" class="popup__close-button button"></button>
+      </form>
+    </div>
+  </div>
+  <script src="./script/index.js"></script>
 </body>
+
 </html>

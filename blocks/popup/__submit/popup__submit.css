@@ -1,5 +1,6 @@
 .popup__submit {
   padding: 0;
+  border: none;
   width: 100%;
   height: 50px;
   background-color: black;
