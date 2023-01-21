@@ -5,5 +5,5 @@
   grid-template-areas:
     'pic pic'
     'caption like';
-  grid-template-columns: 1fr, min-content;
+  /* grid-template-columns: 1fr, min-content; */
 }

@@ -1,9 +1,6 @@
 .elements__pic {
   grid-area: pic;
   width: 100%;
-  padding-bottom: 100%;
   border-radius: 10px 10px 0 0;
-  background-size: cover;
-  background-position:top;
-  background-repeat: no-repeat;
+  object-fit: cover;
 }

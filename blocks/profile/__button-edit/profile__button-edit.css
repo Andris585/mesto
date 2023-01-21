@@ -3,7 +3,9 @@
   background-color: black;
   border: 1px solid #fff;
   background-image: url(../../../images/Edit\ Button.svg);
-  background-size: cover;
+  background-size: auto;
+  background-position: center;
+  background-repeat: no-repeat;
   width: 24px;
   height: 24px;
   grid-area: edit;
