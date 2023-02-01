@@ -26,50 +26,7 @@
       <button class="profile__button-add button" type="button"></button>
     </section>
     <section class="elements" aria-label="фотогалерея профиля">
-      <ul class="elements__list">
-        <li class="elements__item">
-          <img src="./images/kirill-pershin-1088404-unsplash(karachevsk).jpg" class="elements__pic" alt="вид на горы карачаево-черкесии">
-          <div class="elements__bottom-container">
-          <h2 class="elements__caption">Карачаевск</h2>
-          <button class="elements__like" type="button"></button>
-          </div>        
-        </li>
-        <li class="elements__item">
-          <img src="./images/kirill-pershin-1404681-unsplash(elbrus).png" class="elements__pic" alt="вид на горы приэльбрусья">
-          <div class="elements__bottom-container">
-          <h2 class="elements__caption">Гора Эльбрус</h2>
-          <button class="elements__like" type="button"></button>
-          </div>         
-        </li>
-        <li class="elements__item">
-          <img src="./images/kirill-pershin-1556355-unsplash(dombay).png" class="elements__pic" alt="вид на горы домбая">
-          <div class="elements__bottom-container">
-          <h2 class="elements__caption">Домбай</h2>
-          <button class="elements__like" type="button"></button>
-          </div>        
-        </li>
-        <li class="elements__item">
-          <img src="./images/kirill-pershin-1404681-unsplash(elbrus).png" class="elements__pic" alt="вид на горы приэльбрусья">
-          <div class="elements__bottom-container">
-          <h2 class="elements__caption">Гора Эльбрус</h2>
-          <button class="elements__like" type="button"></button>
-          </div>      
-        </li>
-        <li class="elements__item">
-          <img src="./images/kirill-pershin-1556355-unsplash(dombay).png" class="elements__pic" alt="вид на горы домбая">
-          <div class="elements__bottom-container">
-          <h2 class="elements__caption">Домбай</h2>
-          <button class="elements__like" type="button"></button>
-          </div>    
-        </li>
-        <li class="elements__item">
-          <img src="./images/kirill-pershin-1088404-unsplash(karachevsk).jpg" class="elements__pic" alt="вид на горы карачаево-черкесии">
-          <div class="elements__bottom-container">
-          <h2 class="elements__caption">Карачаево-Черкесия</h2>
-          <button class="elements__like" type="button"></button>
-          </div>  
-        </li>
-      </ul>
+      <ul class="elements__list"></ul>
     </section>
   </main>
   <footer class="footer">
@@ -86,6 +43,15 @@
       </form>
     </div>
   </div>
+  <template id="card-template">
+    <li class="elements__item">
+      <img src="#" class="elements__pic" alt="">
+      <div class="elements__bottom-container">
+      <h2 class="elements__caption"></h2>
+      <button class="elements__like" type="button"></button>
+      </div>        
+    </li>
+  </template>
   <script src="./script/index.js"></script>
 </body>
 
