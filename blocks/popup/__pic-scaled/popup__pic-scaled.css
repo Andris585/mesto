@@ -1,0 +1,6 @@
+.popup__pic-scaled {
+  max-width: 75vw;
+  max-height: 75vh;
+  margin: auto;
+  position: relative;
+}
