@@ -101,20 +101,16 @@ function createElement(srcValue, locationValue) {
     deleteButton.addEventListener('mousedown', () => cardElement.remove());
     likeButton.addEventListener('mousedown', toggleLikeActive);
     imgButton.addEventListener('mousedown', () => openPopupImgScale(srcValue, locationValue));
-    return cardElement;
+    elementsList.prepend(cardElement);
 };
 
-function addElement(cardElement) {
-  elementsList.prepend(cardElement);
-};
-
-initialCards.forEach(element => addElement(createElement(element.link, element.name)));
+initialCards.forEach(element => createElement(element.link, element.name));
 
 function addCard(evt) {
   evt.preventDefault();
   const newSrc = popupInputLink.value;
   const newLocation =  popupInputLocationName.value;
-  addElement(createElement(newSrc, newLocation));
+  createElement(newSrc, newLocation);
   closePopup(popupAddCard);
   evt.target.reset();
 };
