@@ -1,19 +1,19 @@
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const popupImgScale = document.querySelector('.popup_type_img-scale');
-const profileEditButton = document.querySelector('.profile__button-edit');
-const profileAddButton = document.querySelector('.profile__button-add');
 const popupCloseButtons = document.querySelectorAll('.popup__close-button');
 const popupInputName = document.querySelector('.popup__input_type_name');
 const popupInputBio = document.querySelector('.popup__input_type_bio');
 const popupInputLocationName = document.querySelector('.popup__input_type_location-name');
 const popupInputLink = document.querySelector('.popup__input_type_link');
-const profileName = document.querySelector('.profile__name');
-const profileBio = document.querySelector('.profile__bio');
 const popupFormEditProfile = document.querySelector('.popup__form_type_edit-profile');
 const popupFormAddCard = document.querySelector('.popup__form_type_add-card');
 const popupImgScalePicCaption = document.querySelector('.popup__pic-caption');
 const popupImgScalePic = document.querySelector('.popup__pic-scaled');
+const profileEditButton = document.querySelector('.profile__button-edit');
+const profileAddButton = document.querySelector('.profile__button-add');
+const profileName = document.querySelector('.profile__name');
+const profileBio = document.querySelector('.profile__bio');
 const elementsList = document.querySelector('.elements__list');
 const cardTemplate = document.querySelector('#card-template').content;
 const initialCards = [
@@ -96,7 +96,7 @@ function createElement(srcValue, locationValue) {
     const imgButton = cardElement.querySelector('.elements__pic');
     const cardCaption = cardElement.querySelector('.elements__caption')
     imgButton.src = srcValue;
-    imgButton.alt = locationValue;
+    imgButton.alt = `${locationValue}, пейзаж`;
     cardCaption.textContent = locationValue;
     deleteButton.addEventListener('mousedown', () => cardElement.remove());
     likeButton.addEventListener('mousedown', toggleLikeActive);
