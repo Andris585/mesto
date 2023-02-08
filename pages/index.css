@@ -34,3 +34,4 @@
 @import url(../blocks/popup/__close-button/popup__close-button.css);
 @import url(../blocks/popup/__pic-scaled/popup__pic-scaled.css);
 @import url(../blocks/popup/__pic-caption/popup__pic-caption.css);
+@import url(../blocks/popup/_type/popup_type_img-scale.css);
