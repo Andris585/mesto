@@ -31,6 +31,8 @@ function closePopup(popup) {
 function openPopupEditProfile() {
     popupInputName.value = profileName.textContent;
     popupInputBio.value = profileBio.textContent;
+    popupEditProfile.querySelector('.popup__submit').removeAttribute('disabled', '');
+    popupEditProfile.querySelector('.popup__submit').classList.remove('popup__submit_inactive');
     openPopup(popupEditProfile);
 }
 
@@ -47,6 +49,8 @@ popupFormEditProfile.addEventListener('submit', handleProfileFormSubmit);
 
 function openPopupAddCard() {
     popupFormAddCard.reset();
+    popupFormAddCard.querySelector('.popup__submit').disabled = true;
+    popupFormAddCard.querySelector('.popup__submit').classList.add('popup__submit_inactive');
     openPopup(popupAddCard);
 }
 profileAddButton.addEventListener('click', openPopupAddCard);
@@ -84,11 +88,11 @@ function createElement(srcValue, locationValue) {
     
 };
 
-function renderCards(cardElement) {
-  elementsContainer.prepend(cardElement);
+function renderCard(cardElement, cardContainer) {
+  cardContainer.prepend(cardElement);
 };
 
-initialCards.forEach(element => renderCards(createElement(element.link, element.name)));
+initialCards.forEach(element => renderCard(createElement(element.link, element.name), elementsContainer));
 
 function addCard(evt) {
   evt.preventDefault();
@@ -102,7 +106,7 @@ function addCard(evt) {
 popupFormAddCard.addEventListener('submit', addCard);
 
 popups.forEach((popup) => {
-  popup.addEventListener('click', (evt) => {
+  popup.addEventListener('mousedown', (evt) => {
     if (evt.target === evt.currentTarget) {
       closePopup(popup);
     }

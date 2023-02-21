@@ -40,9 +40,7 @@ if (hasInvalidInput(inputList)) {
 const setEventListeners = (parameters, formElement) => {
   const inputList = Array.from(formElement.querySelectorAll(parameters.inputSelector));
   const buttonElement = formElement.querySelector(parameters.submitButtonSelector);
-  if (formElement !== document.forms['profile-form']) {
   toggleButtonState(parameters, inputList, buttonElement);
-  }
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       checkInputValidity(parameters, formElement, inputElement);
