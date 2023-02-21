@@ -98,7 +98,7 @@ function addCard(evt) {
   evt.preventDefault();
   const newSrc = popupInputLink.value;
   const newLocation =  popupInputLocationName.value;
-  renderCards(createElement(newSrc, newLocation));
+  renderCard(createElement(newSrc, newLocation));
   closePopup(popupAddCard);
   evt.target.reset();
 }
