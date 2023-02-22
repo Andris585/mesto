@@ -36,7 +36,6 @@ if (hasInvalidInput(inputList)) {
 }
 }
 
-
 const setEventListeners = (parameters, formElement) => {
   const inputList = Array.from(formElement.querySelectorAll(parameters.inputSelector));
   const buttonElement = formElement.querySelector(parameters.submitButtonSelector);

@@ -89,6 +89,7 @@ function createElement(srcValue, locationValue) {
 };
 
 function renderCard(cardElement, cardContainer) {
+  console.log(cardContainer);
   cardContainer.prepend(cardElement);
 };
 
@@ -98,7 +99,7 @@ function addCard(evt) {
   evt.preventDefault();
   const newSrc = popupInputLink.value;
   const newLocation =  popupInputLocationName.value;
-  renderCard(createElement(newSrc, newLocation));
+  renderCard(createElement(newSrc, newLocation), elementsContainer);
   closePopup(popupAddCard);
   evt.target.reset();
 }
