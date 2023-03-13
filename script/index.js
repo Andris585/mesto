@@ -25,13 +25,10 @@ import { FormValidator } from './FormValidator.js';
 
 import { Card } from './Card.js';
 
-const executeValidation = (formItem) => {
-  const validator = new FormValidator(parameters, formItem);
-  return validator;
-}
-
-executeValidation(popupFormEditProfile).enableValidation();
-executeValidation(popupAddCard).enableValidation();
+const profileValidation = new FormValidator(parameters, popupFormEditProfile);
+const addCardValidation = new FormValidator(parameters, popupFormAddCard);
+profileValidation.enableValidation();
+addCardValidation.enableValidation(); 
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -46,9 +43,8 @@ function closePopup(popup) {
 function openPopupEditProfile() {
     popupInputName.value = profileName.textContent;
     popupInputBio.value = profileBio.textContent;
-    popupEditProfile.querySelector('.popup__submit').removeAttribute('disabled', '');
-    popupEditProfile.querySelector('.popup__submit').classList.remove('popup__submit_inactive');
     openPopup(popupEditProfile);
+    profileValidation.resetValidation();
 }
 
 profileEditButton.addEventListener('click', openPopupEditProfile);
@@ -64,9 +60,8 @@ popupFormEditProfile.addEventListener('submit', handleProfileFormSubmit);
 
 function openPopupAddCard() {
     popupFormAddCard.reset();
-    popupFormAddCard.querySelector('.popup__submit').disabled = true;
-    popupFormAddCard.querySelector('.popup__submit').classList.add('popup__submit_inactive');
     openPopup(popupAddCard);
+    addCardValidation.resetValidation();
 }
 profileAddButton.addEventListener('click', openPopupAddCard);
 
@@ -80,10 +75,6 @@ function openPopupImgScale(link, name){
   popupImgScalePicCaption.textContent = name;
   popupImgScalePic.src = link;
   popupImgScalePic.alt = name;
-};
-
-function toggleLikeActive(evt) {
-  evt.target.classList.toggle('elements__like_active');
 };
 
 popupFormAddCard.addEventListener('submit', addCard);
