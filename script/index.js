@@ -21,9 +21,9 @@ import {
   popups
 } from './data.js';
 
-import { FormValidator } from './FormValidator.js';
+import FormValidator from './FormValidator.js';
 
-import { Card } from './Card.js';
+import Card from './Card.js';
 
 const profileValidation = new FormValidator(parameters, popupFormEditProfile);
 const addCardValidation = new FormValidator(parameters, popupFormAddCard);
@@ -94,7 +94,6 @@ function closePopupOnEsc(evt) {
 }
 
 const createElement = (data) => {
-  console.log(data);
   const card = new Card(data, openPopupImgScale, '.card-template');
   const cardElement = card.createCard();
   return cardElement;
