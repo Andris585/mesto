@@ -1,9 +1,9 @@
 export default class Card {
-  constructor(data, openPopupImgScale, templateSelector) {
+  constructor(data, imageClickHandler, templateSelector) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
-    this._openPopupImgScale = openPopupImgScale;
+    this._imageClickHandler = imageClickHandler;
   }
 
   _getTemplate() {
@@ -15,7 +15,7 @@ export default class Card {
 
   _setEventListeners() {
     this._cardImg.addEventListener('click', () => {
-      this._openPopupImgScale(this._link, this._name);
+      this._imageClickHandler({ link: this._link, name: this._name });
     });
     this._card.querySelector('.elements__delete-button').addEventListener('click', this._removeCard);
     this._card.querySelector('.elements__like').addEventListener('click', this._toggleLikeButton);
