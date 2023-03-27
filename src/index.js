@@ -33,6 +33,8 @@ import PopupWithForm from './PopupWithForm.js';
 
 import UserInfo from './UserInfo.js';
 
+import './index.css';
+
 const profileValidation = new FormValidator(parameters, popupFormEditProfile);
 export {profileValidation}
 const addCardValidation = new FormValidator(parameters, popupFormAddCard);
