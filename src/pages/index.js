@@ -67,6 +67,8 @@ const editButtonClickHandler = () => {
   popupFormProfile.open();
   profileValidation.resetValidation();
   setInitialUserInfo(userInfo.getUserInfo());
+  console.log(document.querySelector('.profile__name'));
+  console.log(userInfo.getUserInfo());
 };
 
 const addCardClickHandler = () => {
@@ -74,10 +76,8 @@ const addCardClickHandler = () => {
   addCardValidation.resetValidation();
 };
 
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
-  userInfo.setUserInfo(popupFormProfile._getInputValues());
-
+function handleProfileFormSubmit(data) {
+  userInfo.setUserInfo(data);
   popupFormProfile.close();
 }
 
@@ -94,23 +94,15 @@ const initialCardsRendered = new Section(
   { items: initialCards, renderer: createElement },
   ".elements__list"
 );
-console.log(initialCardsRendered);
+
 initialCardsRendered.renderItems();
 
-const inputData = [
-  {
-    link: popupInputLink.value,
-    name: popupInputLocationName.value,
-  },
-];
 const cardRendered = new Section(
-  { items: inputData, renderer: createElement },
+  { items: {}, renderer: createElement },
   ".elements__list"
 );
 
-function handleAddCardSubmit(evt) {
-  evt.preventDefault();
-  cardRendered.addItem();
+function handleAddCardSubmit({ name, link }) {
+  cardRendered.addItem({ name, link });
   popupFormNewCard.close();
-  evt.target.reset();
 }

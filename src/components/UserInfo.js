@@ -8,11 +8,11 @@ export default class UserInfo{
   }
 
   getUserInfo() {
-    const userInfo = { name: this._name, bio: this._bio };
+    let userInfo = { name: this._profileName.textContent, bio: this._profileBio.textContent };
     return userInfo;
   }
 
-  setUserInfo([ name, bio ]) {
+  setUserInfo({ name, bio }) {
     this._profileName.textContent = name;
     this._profileBio.textContent = bio;
   }
