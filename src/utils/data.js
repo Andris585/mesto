@@ -1,30 +1,3 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 const parameters = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -52,9 +25,12 @@ const profileName = document.querySelector('.profile__name');
 const profileBio = document.querySelector('.profile__bio');
 const elementsContainer = document.querySelector('.elements__list');
 const popups = document.querySelectorAll('.popup');
+const avatarOverlay = document.querySelector('.profile__overlay');
+const avatar = document.querySelector('.profile__avatar');
+const popupChangeAvatarForm = document.querySelector('.popup__form_type_change-avatar');
+const popupFormDelete = document.querySelector('.popup__form_type_delete-card');
 
 export {
-  initialCards,
   parameters,
   popupEditProfile,
   popupAddCard,
@@ -73,5 +49,9 @@ export {
   profileName,
   profileBio,
   elementsContainer,
-  popups
+  popups,
+  avatarOverlay,
+  avatar,
+  popupChangeAvatarForm,
+  popupFormDelete
 }
