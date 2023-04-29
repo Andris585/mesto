@@ -7,19 +7,20 @@ export default class PopupDelete extends Popup {
     this._form = this._popup.querySelector('.popup__form');
   }
 
-  open() {
-    this._popup.classList.add('popup_opened');
-    window.addEventListener('keydown', this._handleEscClose);
-
+  close() {
+    this._popup.classList.remove('popup_opened');
+    window.removeEventListener('keydown', this._handleEscClose);
+    this._form.removeEventListener('submit', this._submitDelete);
   }
 
   setEventListeners = (data) => {
     super.setEventListeners();
-    this._form.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-      this._handleFormSubmit(data);
-      this.close();
-    }
-      );
+    this._form.addEventListener('submit', this._submitDelete);
+    this._data = data;  
+    };
+
+   _submitDelete = (evt) => {
+    evt.preventDefault();
+    this._handleFormSubmit(this._data);
   }
 }

@@ -27,4 +27,14 @@ export default class Popup {
           this.close();
   }
   }
+
+  renderLoading(isLoading, loadingText) {
+    const initialText = this._popup.querySelector('.popup__submit').textContent;
+    if (isLoading) {
+      this._popup.querySelector('.popup__submit').textContent = loadingText;
+    }
+    else {
+      this._popup.querySelector('.popup__submit').textContent = initialText;
+    }
+  }
 }

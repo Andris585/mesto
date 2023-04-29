@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, imageClickHandler, templateSelector, deleteButtonClickHandler, api) {
+  constructor(data, imageClickHandler, templateSelector, deleteButtonClickHandler, api, userId) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
@@ -10,6 +10,7 @@ export default class Card {
     this._cardId = data._id;
     this._api = api;
     this._data = data;
+    this._userId = userId;
   }
 
   _getTemplate() {
@@ -36,7 +37,7 @@ export default class Card {
     this._cardLikes = this._card.querySelector('.elements__like-counter');
     this._cardCaption = this._card.querySelector('.elements__caption');
     this._cardLike = this._card.querySelector('.elements__like');
-    if (this._data.likes.find(item => item._id === '1f247e5cfdbc56597fc13b33')){
+    if (this._data.likes.find(item => item._id === this._userId)){
       this._cardLike.classList.add('elements__like_active');
     }
     this._cardImg.alt = `${this._name}, пейзаж`;
@@ -45,9 +46,8 @@ export default class Card {
     this._cardCaption.textContent = this._name;
     this._cardLikes.textContent = this._likes;
     this._setEventListeners();
-    if (this._owner === '1f247e5cfdbc56597fc13b33') {
+    if (this._owner === this._userId) {
       this.setDeleteVisible();
-      this._cardLike.classList.add('elements__like_active');
     }
     return this._card;
   }
@@ -58,18 +58,13 @@ export default class Card {
   
   _toggleLikeButton = (data) => {
     this._api.toggleLikeButton(data)
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Error');
-    })
+    .then(this._api._checkResponse)
     .then(data => {
       this._cardLikes.textContent = data.likes.length;
       this._data = data;
     })
     .catch(err => console.log(err));
-    if (this._data.likes.find(item => item._id === '1f247e5cfdbc56597fc13b33')){
+    if (this._data.likes.find(item => item._id === this._userId)){
       this._cardLike.classList.remove('elements__like_active');
     }
     else {

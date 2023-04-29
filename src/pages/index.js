@@ -9,7 +9,6 @@ import {
   avatarOverlay,
   avatar,
   popupChangeAvatarForm,
-  popupFormDelete
 } from "../utils/data.js";
 
 import FormValidator from "../components/FormValidator.js";
@@ -35,17 +34,6 @@ const api = new Api({
   headers: {authorization: '39e9c6b5-4599-464d-b55f-3df424ee89b0'}
 });
 
-function renderLoading(isLoading, form) {
-  const submit = form.querySelector('.popup__submit');
-  const initialState = submit.textContent;
-  if (isLoading) {
-    submit.textContent = 'Сохранение...';
-  }
-  else {
-    submit.textContent = initialState;
-  }
-}
-
 const profileValidation = new FormValidator(parameters, popupFormEditProfile);
 export { profileValidation };
 const addCardValidation = new FormValidator(parameters, popupFormAddCard);
@@ -64,18 +52,19 @@ avatarOverlay.addEventListener("click", avatarOverlayClickHandler);
 
 function avatarOverlayClickHandler() {
   popupChangeAvatar.open();
+  changeAvavtarValidation.resetValidation();
 }
 
 const imageClickHandler = (data) => {
   popupWithImage.open(data);
 };
 
-const popupFormProfile = new PopupWithForm(
+const popupProfile = new PopupWithForm(
   ".popup_type_edit-profile",
   handleProfileFormSubmit
 );
 
-const popupFormNewCard = new PopupWithForm(
+const popupNewCard = new PopupWithForm(
   ".popup_type_add-card",
   handleAddCardSubmit
 );
@@ -90,15 +79,22 @@ const popupChangeAvatar = new PopupWithForm(
   handleChangeAvatarSubmit
 );
 
-popupFormProfile.setEventListeners();
-popupFormNewCard.setEventListeners();
+popupProfile.setEventListeners();
+popupNewCard.setEventListeners();
 popupChangeAvatar.setEventListeners();
 
 let userInfo;
 
-api.getUserData().then(data => {
+let userId;
+
+let userPromise = new Promise((resolve, reject) => {
+  api.getUserData()
+.then(data => {
   userInfo = new UserInfo(data);
   userInfo.setUserInfo(data);
+  userId = data._id;
+  resolve(userId);
+});
 });
 
 const setInitialUserInfo = ({ name, bio }) => {
@@ -107,26 +103,40 @@ const setInitialUserInfo = ({ name, bio }) => {
 };
 
 const editButtonClickHandler = () => {
-  popupFormProfile.open();
+  popupProfile.open();
   profileValidation.resetValidation();
   setInitialUserInfo(userInfo.getUserInfo());
 };
 
 const addCardClickHandler = () => {
-  popupFormNewCard.open();
+  popupNewCard.open();
   addCardValidation.resetValidation();
 };
 
-function handleProfileFormSubmit(data) {
-  renderLoading(true, popupFormEditProfile);
-  userInfo.setUserInfo(data);
-  api.postUserInfo(data)
-  .catch(err => console.log(err))
+function handleSubmit(request, popupInstance, loadingText = "Сохранение...") { 
+  popupInstance.renderLoading(true, loadingText);
+  request()
+  .then(() => {
+    popupInstance.close()
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+  })
   .finally(() => {
-    renderLoading(false, popupFormEditProfile);
+    popupInstance.renderLoading(false);
   });
-  popupFormProfile.close();
-};
+}
+
+function handleProfileFormSubmit(inputValues) {
+  function makeRequest() {
+    return api.postUserInfo(inputValues)
+    .then(api._checkResponse)
+    .then((userData) => {
+      userInfo.setUserInfo(userData)
+    });
+  }
+  handleSubmit(makeRequest, popupProfile);
+}
 
 function deleteButtonClickHandler(data) {
   popupDeleteConfirmation.open();
@@ -137,15 +147,16 @@ profileEditButton.addEventListener("click", editButtonClickHandler);
 profileAddButton.addEventListener("click", addCardClickHandler);
 
 const createElementNoDelete = (data) => {
-  const card = new Card(data, imageClickHandler, ".card-template", deleteButtonClickHandler, api);
+  const card = new Card(data, imageClickHandler, ".card-template", deleteButtonClickHandler, api, userId);
   const cardElement = card.createCard();
   return cardElement;
 };
 
 let initialCards;
 
-api.getInitialCards().then(data => {
-  initialCards = data;
+let initialCardsPromise = new Promise((resolve, reject) => {
+  api.getInitialCards().then(data => {
+  resolve(initialCards = data);
   const initialCardsRendered = new Section(
     { items: initialCards, renderer: createElementNoDelete },
     ".elements__list"
@@ -153,58 +164,51 @@ api.getInitialCards().then(data => {
   initialCardsRendered.renderItems();
 })
 .catch(err => console.log(err));
+});
+
+Promise.all([userPromise, initialCardsPromise]);
 
 const cardRendered = new Section(
   { items: {}, renderer: createElementNoDelete },
   ".elements__list"
 );
 
-function handleAddCardSubmit(data) {
-  renderLoading(true, popupFormAddCard);
-  api.postNewCard(data)
-  .then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject;
-  })
-  .then(data => {
-    cardRendered.addItem(data);
-  })
-  .catch(err => console.log(err))
-  .finally(() => {
-    renderLoading(false, popupFormAddCard);
-  })
-  popupFormNewCard.close();
+function handleAddCardSubmit(inputsValues) {
+  function makeRequest() {
+   return api.postNewCard(inputsValues)
+    .then(api._checkResponse)
+    .then(data => {
+      cardRendered.addItem(data, "prepend");
+    })
+    .catch(err => console.log(err));
+  }
+  handleSubmit(makeRequest, popupNewCard);
 }
 
 function handleDeleteSubmit(data) {
-  renderLoading(true, popupFormDelete);
-  api.deleteCard(data.id)
-  .catch(err => console.log(err))
-  .finally(() => {
-    renderLoading(false, popupFormDelete);
-  });
-  data.remove();
+  function makeRequest() {
+    return api.deleteCard(data.id)
+    .then(api._checkResponse)
+    .then(() => {
+      popupDeleteConfirmation.close();
+      data.remove();
+    })
+  }
+  handleSubmit(makeRequest, popupDeleteConfirmation);
 }
 
 function handleChangeAvatarSubmit(data) {
-  renderLoading(true, popupChangeAvatarForm);
-  api.changeAvatar(data)
-  .then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject('error');
-  })
+  function makeRequest() {
+ return  api.changeAvatar(data)
+  .then(api._checkResponse)
   .then(data => {
     avatar.src = data.avatar;
     this.close();
   })
   .catch(err => console.log(err))
-  .finally(() => {
-    renderLoading(false, popupChangeAvatarForm);
-  })
+  }
+  handleSubmit(makeRequest, popupChangeAvatar);
 }
+
 
 

@@ -4,28 +4,28 @@ export default class Api {
     this.headers = config.headers;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject('error');
+  }
+
+  _request(endpoint, options) {
+    return fetch(this.url + endpoint, options)
+    .then(this._checkResponse);
+  }
+
   getUserData() {
-    return fetch(this.url + 'users/me', {
-      headers: this.headers
-    })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject('error');
-    })
+    return this._request('users/me', {
+        headers: this.headers
+      });
   }
 
   getInitialCards() {
-    return fetch(this.url + 'cards', {
+    return this._request('cards', {
       headers: this.headers
-    })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject('error');
-    })
+    });
 }
 
 postUserInfo({ name, about }) {
@@ -67,7 +67,10 @@ toggleLikeButton(data) {
   const contentType = {'Content-Type': 'application/json'};
   const headers = this.headers;
   const expandedHeaders = {...headers, ...contentType};
-  if (data.likes.find(item => item._id === '1f247e5cfdbc56597fc13b33'))
+  this._userId = this.getUserData().then(userData => {
+    return userData.id;
+  });
+  if (data.likes.find(item => item._id === this._userId))
   {
     return fetch(this.url + `cards/${data._id}/likes`, {
       method: 'DELETE',
