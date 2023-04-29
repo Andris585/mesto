@@ -7,7 +7,7 @@
 .content{grid-column:1/-1}
 .profile{align-items:center;display:flex;justify-content:space-between;margin:40px auto 0;max-width:880px;padding:0 19px 50px}@media screen and (max-width:700px){.profile{flex-direction:column;padding-bottom:36px}}
 .profile__container{align-items:center;display:flex;position:relative}@media screen and (max-width:700px){.profile__container{flex-direction:column}}
-.profile__avatar{border-radius:50%;height:120px;margin-right:30px;min-width:120px}@media screen and (max-width:700px){.profile__avatar{margin-right:0}}
+.profile__avatar{border-radius:50%;height:120px;margin-right:30px;width:120px}@media screen and (max-width:700px){.profile__avatar{margin-right:0}}
 .profile__info{align-items:end;-moz-column-gap:18px;column-gap:18px;display:grid;grid-template-areas:"name edit" "bio .";max-width:450px;row-gap:7px}@media screen and (max-width:700px){.profile__info{margin-left:36px}}
 .profile__name{color:#fff;font-family:Inter,Helvetica,Arial,sans-serif;font-size:42px;font-style:normal;font-weight:500;grid-area:name;line-height:1.14;margin:0;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom;white-space:nowrap}@media screen and (max-width:700px){.profile__name{font-size:27px;line-height:33px;padding-top:26px;text-align:center}}
 .profile__bio{color:#fff;font-family:Inter,Helvetica,Arial,sans-serif;font-size:18px;font-style:normal;font-weight:400;grid-area:bio;line-height:1.22;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}@media screen and (max-width:700px){.profile__bio{font-size:14px;line-height:17px;padding-bottom:36px;text-align:center}}
