@@ -113,17 +113,17 @@ const addCardClickHandler = () => {
   addCardValidation.resetValidation();
 };
 
-function handleSubmit(request, popupInstance, loadingText = "Сохранение...") { 
-  popupInstance.renderLoading(true, loadingText);
+function handleSubmit(request, popupInstance, initialText, loadingText = "Сохранение...") { 
+  popupInstance.renderLoading(true, initialText, loadingText);
   request()
   .then(() => {
-    popupInstance.close()
+    popupInstance.close();
   })
   .catch((err) => {
     console.log(`Ошибка: ${err}`);
   })
   .finally(() => {
-    popupInstance.renderLoading(false);
+    popupInstance.renderLoading(false, initialText);
   });
 }
 
@@ -135,7 +135,7 @@ function handleProfileFormSubmit(inputValues) {
       userInfo.setUserInfo(userData)
     });
   }
-  handleSubmit(makeRequest, popupProfile);
+  handleSubmit(makeRequest, popupProfile, "Сохранить");
 }
 
 function deleteButtonClickHandler(data) {
@@ -180,21 +180,19 @@ function handleAddCardSubmit(inputsValues) {
     .then(data => {
       cardRendered.addItem(data, "prepend");
     })
-    .catch(err => console.log(err));
   }
-  handleSubmit(makeRequest, popupNewCard);
+  handleSubmit(makeRequest, popupNewCard, "Создать");
 }
 
-function handleDeleteSubmit(data) {
+function handleDeleteSubmit(card) {
   function makeRequest() {
-    return api.deleteCard(data.id)
+    return api.deleteCard(card.id)
     .then(api._checkResponse)
     .then(() => {
-      popupDeleteConfirmation.close();
-      data.remove();
+      card.remove();
     })
   }
-  handleSubmit(makeRequest, popupDeleteConfirmation);
+  handleSubmit(makeRequest, popupDeleteConfirmation, "Да");
 }
 
 function handleChangeAvatarSubmit(data) {
@@ -203,12 +201,8 @@ function handleChangeAvatarSubmit(data) {
   .then(api._checkResponse)
   .then(data => {
     avatar.src = data.avatar;
-    this.close();
   })
-  .catch(err => console.log(err))
   }
-  handleSubmit(makeRequest, popupChangeAvatar);
+  handleSubmit(makeRequest, popupChangeAvatar, "Сохранить");
 }
-
-
 

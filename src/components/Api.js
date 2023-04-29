@@ -63,14 +63,12 @@ deleteCard(data) {
   })
 }
 
-toggleLikeButton(data) {
+toggleLikeButton(data, userId) {
   const contentType = {'Content-Type': 'application/json'};
   const headers = this.headers;
   const expandedHeaders = {...headers, ...contentType};
-  this._userId = this.getUserData().then(userData => {
-    return userData.id;
-  });
-  if (data.likes.find(item => item._id === this._userId))
+  console.log(userId);
+  if (data.likes.find(item => item._id === userId))
   {
     return fetch(this.url + `cards/${data._id}/likes`, {
       method: 'DELETE',

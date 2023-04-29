@@ -57,7 +57,7 @@ export default class Card {
   }
   
   _toggleLikeButton = (data) => {
-    this._api.toggleLikeButton(data)
+    this._api.toggleLikeButton(data, this._userId)
     .then(this._api._checkResponse)
     .then(data => {
       this._cardLikes.textContent = data.likes.length;
