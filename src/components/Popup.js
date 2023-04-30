@@ -1,6 +1,7 @@
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
+   
   }
 
   open() {
@@ -28,13 +29,5 @@ export default class Popup {
   }
   }
 
-  renderLoading(isLoading, loadingText) {
-    const initialText = this._popup.querySelector('.popup__submit').textContent;
-    if (isLoading) {
-      this._popup.querySelector('.popup__submit').textContent = loadingText;
-    }
-    else {
-      this._popup.querySelector('.popup__submit').textContent = initialText;
-    }
-  }
+
 }

@@ -205,4 +205,3 @@ function handleChangeAvatarSubmit(data) {
   }
   handleSubmit(makeRequest, popupChangeAvatar, "Сохранить");
 }
-
