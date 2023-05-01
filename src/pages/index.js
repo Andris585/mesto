@@ -7,7 +7,6 @@ import {
   profileEditButton,
   profileAddButton,
   avatarOverlay,
-  avatar,
   popupChangeAvatarForm,
 } from "../utils/data.js";
 
@@ -89,18 +88,6 @@ let userInfo;
 
 let userId;
 
-const getUserData = () => {
-return api.getUserData()
-.then(data => {
-  userInfo = new UserInfo(data, {nameSelector: ".profile__name", 
-  bioSelector: ".profile__bio",
-  avatarSelector: ".profile__avatar"});
-  userInfo.setUserInfo(data);
-  userId = data._id;
-  return (userId);
-});
-};
-
 const setInitialUserInfo = ({ name, bio }) => {
   popupInputName.value = name;
   popupInputBio.value = bio;
@@ -148,34 +135,39 @@ function deleteButtonClickHandler(data) {
 profileEditButton.addEventListener("click", editButtonClickHandler);
 profileAddButton.addEventListener("click", addCardClickHandler);
 
+Promise.all([getUserData(), getCards()])
+.then(([userData, cards]) => {
+  
+  userInfo = new UserInfo(userData, { nameSelector: ".profile__name", 
+  bioSelector: ".profile__bio",
+  avatarSelector: ".profile__avatar" });
+  userInfo.setUserInfo(userData);
+  userId = userData._id;
+  const initialCardsRendered = new Section(
+    { items: cards, renderer: createElement },
+    ".elements__list"
+  );
+  initialCardsRendered.renderItems();
+  return (userId);
+})
+.catch((err) => console.log(`Ошибка: ${err}`));
+
 const createElement = (data) => {
   const card = new Card(data, imageClickHandler, ".card-template", deleteButtonClickHandler, api, userId);
+  console.log(userId);
   const cardElement = card.createCard();
   return cardElement;
 };
 
-let initialCards;
-
-const getCards = () => {
-  return api.getInitialCards();
+function getUserData() {
+  return api.getUserData()
 };
 
-Promise.all([getUserData(), getCards()])
-.then(([userData, cards]) => {
-  initialCards = cards;
-  const initialCardsRendered = new Section(
-    { items: initialCards, renderer: createElement },
-    ".elements__list"
-  );
-  initialCardsRendered.renderItems();
-  userInfo = new UserInfo(userData, {nameSelector: ".profile__name", 
-  bioSelector: ".profile__bio",
-  avatarSelector: ".profile__avatar"});
-  userInfo.setUserInfo(data);
-  userId = data._id;
-  return (userId);
-})
-.catch((err) => console.log(`Ошибка: ${err}`));
+function getCards() {
+  return api.getInitialCards()
+};
+
+
 
 const cardRendered = new Section(
   { items: {}, renderer: createElement },
