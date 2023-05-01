@@ -1,7 +1,9 @@
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
-   
+    this._inputs = this._popup.querySelectorAll('.popup__input');
+    this._form = this._popup.querySelector('.popup__form');
+    this._submitButton = this._popup.querySelector('.popup__submit');
   }
 
   open() {
@@ -29,5 +31,12 @@ export default class Popup {
   }
   }
 
-
+  renderLoading(isLoading, initialText, loadingText) {
+    if (isLoading) {
+      this._submitButton.innerText = loadingText;
+    }
+    else {
+      this._submitButton.innerText = initialText;
+    }
+}
 }

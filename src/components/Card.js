@@ -27,7 +27,7 @@ export default class Card {
     this._card.querySelector('.elements__delete-button').addEventListener('click', () => {
       this._deleteButtonClick(this._card);
     });
-    this._card.querySelector('.elements__like').addEventListener('click', () => {
+    this._cardLike.addEventListener('click', () => {
       this._toggleLikeButton(this._data)});
   }
 
@@ -58,18 +58,17 @@ export default class Card {
   
   _toggleLikeButton = (data) => {
     this._api.toggleLikeButton(data, this._userId)
-    .then(this._api._checkResponse)
     .then(data => {
+      if (this._data.likes.find(item => item._id === this._userId)){
+        this._cardLike.classList.remove('elements__like_active');
+      }
+      else {
+        this._cardLike.classList.add('elements__like_active');
+      }
       this._cardLikes.textContent = data.likes.length;
       this._data = data;
     })
     .catch(err => console.log(err));
-    if (this._data.likes.find(item => item._id === this._userId)){
-      this._cardLike.classList.remove('elements__like_active');
-    }
-    else {
-      this._cardLike.classList.add('elements__like_active');
-    }
   }
 
   setDeleteVisible() {

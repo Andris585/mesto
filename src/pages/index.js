@@ -31,7 +31,8 @@ import Api from "../components/Api.js";
 
 const api = new Api({
   url: 'https://nomoreparties.co/v1/cohort-64/',
-  headers: {authorization: '39e9c6b5-4599-464d-b55f-3df424ee89b0'}
+  headers: {authorization: '39e9c6b5-4599-464d-b55f-3df424ee89b0',
+'Content-Type': 'application/json'}
 });
 
 const profileValidation = new FormValidator(parameters, popupFormEditProfile);
@@ -82,20 +83,23 @@ const popupChangeAvatar = new PopupWithForm(
 popupProfile.setEventListeners();
 popupNewCard.setEventListeners();
 popupChangeAvatar.setEventListeners();
+popupDeleteConfirmation.setEventListeners();
 
 let userInfo;
 
 let userId;
 
-let userPromise = new Promise((resolve, reject) => {
-  api.getUserData()
+const getUserData = () => {
+return api.getUserData()
 .then(data => {
-  userInfo = new UserInfo(data);
+  userInfo = new UserInfo(data, {nameSelector: ".profile__name", 
+  bioSelector: ".profile__bio",
+  avatarSelector: ".profile__avatar"});
   userInfo.setUserInfo(data);
   userId = data._id;
-  resolve(userId);
+  return (userId);
 });
-});
+};
 
 const setInitialUserInfo = ({ name, bio }) => {
   popupInputName.value = name;
@@ -130,7 +134,6 @@ function handleSubmit(request, popupInstance, initialText, loadingText = "Сох
 function handleProfileFormSubmit(inputValues) {
   function makeRequest() {
     return api.postUserInfo(inputValues)
-    .then(api._checkResponse)
     .then((userData) => {
       userInfo.setUserInfo(userData)
     });
@@ -139,14 +142,13 @@ function handleProfileFormSubmit(inputValues) {
 }
 
 function deleteButtonClickHandler(data) {
-  popupDeleteConfirmation.open();
-  popupDeleteConfirmation.setEventListeners(data);
+  popupDeleteConfirmation.open(data);
 }
 
 profileEditButton.addEventListener("click", editButtonClickHandler);
 profileAddButton.addEventListener("click", addCardClickHandler);
 
-const createElementNoDelete = (data) => {
+const createElement = (data) => {
   const card = new Card(data, imageClickHandler, ".card-template", deleteButtonClickHandler, api, userId);
   const cardElement = card.createCard();
   return cardElement;
@@ -154,29 +156,35 @@ const createElementNoDelete = (data) => {
 
 let initialCards;
 
-let initialCardsPromise = new Promise((resolve, reject) => {
-  api.getInitialCards().then(data => {
-  resolve(initialCards = data);
+const getCards = () => {
+  return api.getInitialCards();
+};
+
+Promise.all([getUserData(), getCards()])
+.then(([userData, cards]) => {
+  initialCards = cards;
   const initialCardsRendered = new Section(
-    { items: initialCards, renderer: createElementNoDelete },
+    { items: initialCards, renderer: createElement },
     ".elements__list"
   );
   initialCardsRendered.renderItems();
+  userInfo = new UserInfo(userData, {nameSelector: ".profile__name", 
+  bioSelector: ".profile__bio",
+  avatarSelector: ".profile__avatar"});
+  userInfo.setUserInfo(data);
+  userId = data._id;
+  return (userId);
 })
-.catch(err => console.log(err));
-});
-
-Promise.all([userPromise, initialCardsPromise]);
+.catch((err) => console.log(`Ошибка: ${err}`));
 
 const cardRendered = new Section(
-  { items: {}, renderer: createElementNoDelete },
+  { items: {}, renderer: createElement },
   ".elements__list"
 );
 
 function handleAddCardSubmit(inputsValues) {
   function makeRequest() {
    return api.postNewCard(inputsValues)
-    .then(api._checkResponse)
     .then(data => {
       cardRendered.addItem(data, "prepend");
     })
@@ -187,20 +195,18 @@ function handleAddCardSubmit(inputsValues) {
 function handleDeleteSubmit(card) {
   function makeRequest() {
     return api.deleteCard(card.id)
-    .then(api._checkResponse)
     .then(() => {
       card.remove();
     })
   }
-  handleSubmit(makeRequest, popupDeleteConfirmation, "Да");
+  handleSubmit(makeRequest, popupDeleteConfirmation, "Да", "Удаление...");
 }
 
 function handleChangeAvatarSubmit(data) {
   function makeRequest() {
  return  api.changeAvatar(data)
-  .then(api._checkResponse)
-  .then(data => {
-    avatar.src = data.avatar;
+  .then(userData => {
+    userInfo.setUserInfo(userData);
   })
   }
   handleSubmit(makeRequest, popupChangeAvatar, "Сохранить");

@@ -29,68 +29,55 @@ export default class Api {
 }
 
 postUserInfo({ name, about }) {
-  const contentType = {'Content-Type': 'application/json'};
-  const headers = this.headers;
-  const expandedHeaders = {...headers, ...contentType};
-  return fetch(this.url + 'users/me', {
+  return this._request('users/me', {
     method: 'PATCH',
-    headers: expandedHeaders,
+    headers: this.headers,
     body: JSON.stringify({
       name: name,
       about: about
     })
-  })
+  }); 
 }
 
-postNewCard({ name, link }) {
-  const contentType = {'Content-Type': 'application/json'};
-  const headers = this.headers;
-  const expandedHeaders = {...headers, ...contentType}; 
-  return fetch(this.url + 'cards', {
+postNewCard({ name, link }) { 
+  return this._request('cards', {
     method: 'POST',
-    headers: expandedHeaders,
+    headers: this.headers,
     body: JSON.stringify({
       name: name,
       link: link
     })
-  })
+  });
 }
 
 deleteCard(data) {
-  return fetch(this.url + `cards/${data}`, {
+  return this._request(`cards/${data}`, {
     method: 'DELETE',
     headers: this.headers
-  })
+  });
 }
 
 toggleLikeButton(data, userId) {
-  const contentType = {'Content-Type': 'application/json'};
-  const headers = this.headers;
-  const expandedHeaders = {...headers, ...contentType};
-  console.log(userId);
   if (data.likes.find(item => item._id === userId))
   {
-    return fetch(this.url + `cards/${data._id}/likes`, {
+    return this._request(`cards/${data._id}/likes`, {
       method: 'DELETE',
-      headers: expandedHeaders
+      headers: this.headers
     });
   }
-  return fetch(this.url + `cards/${data._id}/likes`, {
+  return this._request(`cards/${data._id}/likes`, {
     method: 'PUT',
-    headers: expandedHeaders
+    headers: this.headers
   });
 }
 
 changeAvatar(data) {
-  const contentType = {'Content-Type': 'application/json'};
-  const headers = this.headers;
-  const expandedHeaders = {...headers, ...contentType};
-  return fetch(this.url + 'users/me/avatar', {
+  return this._request('users/me/avatar', {
     method: 'PATCH',
-    headers: expandedHeaders,
+    headers: this.headers,
     body: JSON.stringify({
       avatar: data.link
     })
-  })
+  });
 }
 }
