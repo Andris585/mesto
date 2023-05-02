@@ -15,8 +15,10 @@
   <main class="content">
     <section class="profile">
       <div class="profile__container">
-        <img src="<%=require('./images/image.jpg')%>" alt="аватар профиля" class="profile__avatar">
-        <div class="profile__overlay"></div>
+        <div class="profile__avatar-container">
+          <img src="<%=require('./images/image.jpg')%>" alt="аватар профиля" class="profile__avatar">
+          <div class="profile__overlay"></div>
+        </div>
         <div class="profile__info">
           <h1 class="profile__name"></h1>
           <button class="profile__button-edit button" type="button"></button>

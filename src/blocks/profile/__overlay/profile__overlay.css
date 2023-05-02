@@ -16,9 +16,3 @@
 .profile__overlay:hover {
   opacity: 1;
 }
-
-@media screen and (max-width: 700px) {
-  .profile__overlay {
-    left: 36px;
-  }
-}
