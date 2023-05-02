@@ -11,7 +11,6 @@ export default class Card {
     this._api = api;
     this._data = data;
     this._userId = userId;
-    console.log(this._userId);
   }
 
   _getTemplate() {

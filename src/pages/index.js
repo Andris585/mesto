@@ -35,14 +35,12 @@ const api = new Api({
 });
 
 const profileValidation = new FormValidator(parameters, popupFormEditProfile);
-export { profileValidation };
 const addCardValidation = new FormValidator(parameters, popupFormAddCard);
 const changeAvavtarValidation = new FormValidator(parameters, popupChangeAvatarForm);
 
 profileValidation.enableValidation();
 addCardValidation.enableValidation();
 changeAvavtarValidation.enableValidation();
-
 
 const popupWithImageSelector = ".popup_type_img-scale";
 const popupWithImage = new PopupWithImage(popupWithImageSelector);
@@ -154,7 +152,6 @@ Promise.all([getUserData(), getCards()])
 
 const createElement = (data) => {
   const card = new Card(data, imageClickHandler, ".card-template", deleteButtonClickHandler, api, userId);
-  console.log(userId);
   const cardElement = card.createCard();
   return cardElement;
 };
@@ -166,8 +163,6 @@ function getUserData() {
 function getCards() {
   return api.getInitialCards()
 };
-
-
 
 const cardRendered = new Section(
   { items: {}, renderer: createElement },
@@ -203,3 +198,5 @@ function handleChangeAvatarSubmit(data) {
   }
   handleSubmit(makeRequest, popupChangeAvatar, "Сохранить");
 }
+
+export { profileValidation };
