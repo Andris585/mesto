@@ -86,6 +86,8 @@ let userInfo;
 
 let userId;
 
+let initialCardsRendered;
+
 const setInitialUserInfo = ({ name, bio }) => {
   popupInputName.value = name;
   popupInputBio.value = bio;
@@ -135,18 +137,17 @@ profileAddButton.addEventListener("click", addCardClickHandler);
 
 Promise.all([getUserData(), getCards()])
 .then(([userData, cards]) => {
-  
   userInfo = new UserInfo(userData, { nameSelector: ".profile__name", 
   bioSelector: ".profile__bio",
   avatarSelector: ".profile__avatar" });
   userInfo.setUserInfo(userData);
   userId = userData._id;
-  const initialCardsRendered = new Section(
+  initialCardsRendered = new Section(
     { items: cards, renderer: createElement },
     ".elements__list"
   );
   initialCardsRendered.renderItems();
-  return (userId);
+  return userId;
 })
 .catch((err) => console.log(`Ошибка: ${err}`));
 
@@ -164,16 +165,12 @@ function getCards() {
   return api.getInitialCards()
 };
 
-const cardRendered = new Section(
-  { items: {}, renderer: createElement },
-  ".elements__list"
-);
 
 function handleAddCardSubmit(inputsValues) {
   function makeRequest() {
    return api.postNewCard(inputsValues)
     .then(data => {
-      cardRendered.addItem(data, "prepend");
+      initialCardsRendered.addItem(data, "prepend");
     })
   }
   handleSubmit(makeRequest, popupNewCard, "Создать");
