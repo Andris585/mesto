@@ -51,10 +51,6 @@ export default class Card {
     }
     return this._card;
   }
-
-  _removeCard = () => {
-    this._card.remove();
-  }
   
   _toggleLikeButton = (data) => {
     this._api.toggleLikeButton(data, this._userId)

@@ -29,8 +29,8 @@ import "../pages/index.css";
 import Api from "../components/Api.js";
 
 const api = new Api({
-  url: 'https://nomoreparties.co/v1/cohort-64/',
-  headers: {authorization: '39e9c6b5-4599-464d-b55f-3df424ee89b0',
+  url: 'https://nomoreparties.co/v1/cohort-65/',
+  headers: {authorization: '7a18988f-7dd4-4466-8fdf-29531e30664e',
 'Content-Type': 'application/json'}
 });
 
@@ -68,8 +68,7 @@ const popupNewCard = new PopupWithForm(
 );
 
 const popupDeleteConfirmation = new PopupDelete(
-  ".popup_type_delete-card",
-  handleDeleteSubmit
+  ".popup_type_delete-card"
 );
 
 const popupChangeAvatar = new PopupWithForm(
@@ -128,8 +127,18 @@ function handleProfileFormSubmit(inputValues) {
   handleSubmit(makeRequest, popupProfile, "Сохранить");
 }
 
-function deleteButtonClickHandler(data) {
-  popupDeleteConfirmation.open(data);
+const deleteButtonClickHandler = (card) => {
+  function handleDeleteSubmit() {
+    function makeRequest() {
+      return api.deleteCard(card.id)
+      .then(() => {
+        card.remove();
+      })
+    }
+    handleSubmit(makeRequest, popupDeleteConfirmation, "Да", "Удаление...");
+  }
+  popupDeleteConfirmation.open();
+  popupDeleteConfirmation.setSubmitAction(handleDeleteSubmit);
 }
 
 profileEditButton.addEventListener("click", editButtonClickHandler);
@@ -174,16 +183,6 @@ function handleAddCardSubmit(inputsValues) {
     })
   }
   handleSubmit(makeRequest, popupNewCard, "Создать");
-}
-
-function handleDeleteSubmit(card) {
-  function makeRequest() {
-    return api.deleteCard(card.id)
-    .then(() => {
-      card.remove();
-    })
-  }
-  handleSubmit(makeRequest, popupDeleteConfirmation, "Да", "Удаление...");
 }
 
 function handleChangeAvatarSubmit(data) {
